@@ -10,27 +10,18 @@ int create_file(char x[]){
 
     printf("--------------------------------------------------------------------------------------------\n");
     printf(">");
-    while(1){
-        char ch = _getch();
-        if(ch == 27){
+    char buffer[4096];
+    while(1 == 1){
+        int i;
+        fgets(buffer, sizeof(buffer), stdin);
+        i = strcspn(buffer, "\n");
+        buffer[i] = '\0';
+        if(strcmp(buffer, "^e") == 0){
             printf("\n");
             break;
         }
-
-        else if(ch == '\r'){
-            fputc('\n',pfile);
-            printf("\n");
-        }
-        else if(ch == 8){
-            printf("\b \b");
-            fputc('\b \b', pfile);
-        }
-        else{
-            fputc(ch,pfile);
-            printf("%C",ch);
-        }
+        fprintf(pfile, "%s\n", buffer);
     }
-
     printf("The file has been created successfully");
     fclose(pfile);
     return 0;
