@@ -46,18 +46,25 @@ Todays date is 30/10/25
             printf("\b \b);
         }
     -------------------------------------- NEW UPDATED VERSION(WORKS AS INTENDED) -----------------------------------------------
-while(1 == 1){
-        int i;
-        fgets(buffer, sizeof(buffer), stdin);
-        i = strcspn(buffer, "\n");
-        buffer[i] = '\0';
-        if(strcmp(buffer, "^e") == 0){
-            printf("\n");
-            break;
+    while(1 == 1){
+            int i;
+            fgets(buffer, sizeof(buffer), stdin);
+            i = strcspn(buffer, "\n");
+            buffer[i] = '\0';
+            if(strcmp(buffer, "^e") == 0){
+                printf("\n");
+                break;
+            }
+            fprintf(pfile, "%s\n", buffer);
         }
-        fprintf(pfile, "%s\n", buffer);
-    }
-
-    Adding this version to the code, makes the backspace to work and is being printed in the text file. DONE
+    So, this is the code that actaully works after a lot of trail and erros.
+    WHAT THIS CODE DOES:
+        First the fgets() function waits for the user to enter the data, and when the user presses the enter key, it stops reading 
+        and stores the data like the \n in the buffer, after that we will be removing the new line character from the buffer,
+        because we want to keep typing data or entering data until a specific key is typed to exit the text editor.
+        And when we are satified with the amount of data we have entered or wanted to store in a file, we will enter a newline and
+        type ^e to exit the text editor.
+        After we press the new line character the fgets funciton will stop reading, and we will remove the new line character, we will check if the user has entered ^e seperately and if not we will directly print the data stored in the buffer.
+        now because of the loop we will again make the program wait the user to enter data in a completely new line, and the process continues.
     ---------------------------------------------------------------------------------------------------------------------
     THIS MARKS THE COMPLETION OF THE WORKING OF TEXT EDITOR WITHOUT THE FEATURE OF ARROW KEYS.
