@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<conio.h>
 #include<string.h>
 int create_file(char x[]){
     FILE *pfile = fopen(x,"w");
@@ -6,20 +7,28 @@ int create_file(char x[]){
         printf("Error in writing the file.");
         return 1;
     }
-    char text[1024];
-    printf("--------------------------------------------------------------------------------------------");
+
+    printf("--------------------------------------------------------------------------------------------\n");
     printf(">");
     while(1){
-        fgets(text, sizeof(text), stdin);
-        if(strcmp(text, "\n") == 0){
-            printf(">");
-        }
-        text[strcspn(text , "\n")] = 0;
-        if(strcmp(text, "//0") == 0){
-            printf(">");
+        char ch = _getch();
+        if(ch == 27){
+            printf("\n");
             break;
         }
-        fprintf(pfile, "%s", text);
+
+        else if(ch == '\r'){
+            fputc('\n',pfile);
+            printf("\n");
+        }
+        else if(ch == 8){
+            printf("\b \b");
+            fputc('\b \b', pfile);
+        }
+        else{
+            fputc(ch,pfile);
+            printf("%C",ch);
+        }
     }
 
     printf("The file has been created successfully");
@@ -30,7 +39,7 @@ int create_file(char x[]){
 
 int main(){
     char c[10],nf[24];
-    printf(">");
+    printf("> ");
     scanf("%[a-zA-z] %[a-zA-Z.]",c,nf);
     create_file(nf);
 }
