@@ -32,6 +32,11 @@ int main(){
     char c[10],nf[24];
     printf("> ");
     scanf("%[a-zA-z] %[a-zA-Z.]",c,nf);
-    create_file(nf);
+    if(strcmp(c, "create") == 0){
+        create_file(nf);
+    }
+    else{
+        printf("Invalid command");
+    }
 }
 
