@@ -68,3 +68,5 @@ Todays date is 30/10/25
         now because of the loop we will again make the program wait the user to enter data in a completely new line, and the process continues.
     ---------------------------------------------------------------------------------------------------------------------
     THIS MARKS THE COMPLETION OF THE WORKING OF TEXT EDITOR WITHOUT THE FEATURE OF ARROW KEYS.
+
+

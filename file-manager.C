@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<string.h>
+#include<unistd.h>
+
 int create_file(char x[],char sc[]){
     FILE *pfile = fopen(x,"w");
     if(pfile == NULL){
@@ -41,11 +43,13 @@ int open_file(char nf[],char sc[]){
         printf("Error opening a file.");
         return 1;
     }
+    
     if(strcmp(sc, "-rw") == 0){
         char bufferw[4096];
-        popfile = fopen(nf,"r+");
+        popfile = fopen(nf,"a");
         printf("--------------------------------------");
         while(1 == 1){
+            printf("> ");
             int i;
             fgets(bufferw, 4096, stdin);
             i = strcspn(bufferw, "\n");
@@ -65,11 +69,18 @@ int open_file(char nf[],char sc[]){
 int main(){
     char c[10],nf[24],sc[4];
     printf("> ");
-    scanf("%[a-zA-Z] %[a-zA-Z.] %[ a-zA-Z-]",c,nf,sc);
+    scanf("%[a-zA-Z] %[a-zA-Z.-] %[a-zA-Z-]",c,nf,sc);
+    if(strcmp(c,"pwd") == 0 && strcmp(nf,"-") == 0 && strcmp(sc,"-")){
+        char d[1024];
+        if(getcwd(d, sizeof(d)) != NULL)
+        printf("%s\n",d);
+        else
+        printf("Error in retriving the directory.");
+    }
     if(strcmp(c, "file") == 0){
         if(strcmp(sc, "-c") == 0){
             create_file(nf,sc);
-        }
+        }            
         else if(strcmp(sc, "-r") == 0|| strcmp(sc, "-rw") == 0){
             open_file(nf,sc);
         }
