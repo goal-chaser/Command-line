@@ -2,7 +2,7 @@
 #include<string.h>
 #include<unistd.h>
 
-int create_file(char x[],char sc[]){
+int create_file(char x[]){
     FILE *pfile = fopen(x,"w");
     if(pfile == NULL){
         printf("Error in writing the file.");
@@ -29,24 +29,26 @@ int create_file(char x[],char sc[]){
 
 }
 
-int open_file(char nf[],char sc[]){
+int read_file(char nf[]){
     char buffer[4096] = {0};
     FILE *popfile = fopen(nf, "r");
-    if(strcmp(sc, "-r") == 0){
-        FILE *popfile = fopen(nf, "r");
+    
         while(fgets(buffer, sizeof(buffer), popfile) != NULL){
             printf("%s",buffer);
         }
         printf("\n");
-    }
+    
     if(popfile == NULL){
         printf("Error opening a file.");
         return 1;
     }
-    
-    if(strcmp(sc, "-rw") == 0){
+    fclose(popfile);
+    return 0;
+}
+
+int edit_file(char nf[]){
+    FILE *popfile = fopen(nf, "a");
         char bufferw[4096];
-        popfile = fopen(nf,"a");
         printf("--------------------------------------");
         while(1 == 1){
             printf("> ");
@@ -60,33 +62,46 @@ int open_file(char nf[],char sc[]){
             }
             fprintf(popfile, "%s\n", bufferw);
         }
+        fclose(popfile);
+        return 0;
     }
 
-    fclose(popfile);
-    return 0;
-}
+
 
 int main(){
-    char c[10],nf[24],sc[4];
-    printf("> ");
-    scanf("%[a-zA-Z] %[a-zA-Z.-] %[a-zA-Z-]",c,nf,sc);
-    if(strcmp(c,"pwd") == 0 && strcmp(nf,"-") == 0 && strcmp(sc,"-")){
-        char d[1024];
-        if(getcwd(d, sizeof(d)) != NULL)
-        printf("%s\n",d);
-        else
-        printf("Error in retriving the directory.");
-    }
-    if(strcmp(c, "file") == 0){
-        if(strcmp(sc, "-c") == 0){
-            create_file(nf,sc);
-        }            
-        else if(strcmp(sc, "-r") == 0|| strcmp(sc, "-rw") == 0){
-            open_file(nf,sc);
+    char wd[1024];
+    char input[100];
+    if(fgets(input, sizeof(input), stdin) != NULL){
+        input[strcspn(input, "\n")] = '\0';
+        char *token = strtok(input, " ");
+        while(token != NULL){
+            if(strcmp(token, "file") == 0){
+                token = strtok(NULL, " ");
+                if(strcmp(token, "-c") == 0){
+                    token = strtok(NULL, " ");
+                    create_file(token);
+                    break;
+                }
+                else if(strcmp(token, "-r") == 0){
+                    token = strtok(NULL, " ");
+                    read_file(token);
+                    break;
+                }
+                else if(strcmp(token, "rw") == 0){
+                    token = strtok(NULL, " ");
+                    edit_file(token);
+                    break;
+                }
+                else{
+                    printf("Invalid command");
+                }
+            }
+            if(strcmp(token, "pwd") == 0){
+                getcwd(wd, sizeof(wd));
+                printf("%s\n",wd);
+                break;
+            }
         }
-    }
-    else{
-        printf("Invalid command");
     }
 }
 
