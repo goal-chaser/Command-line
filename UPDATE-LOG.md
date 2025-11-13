@@ -68,5 +68,21 @@ Todays date is 30/10/25
         now because of the loop we will again make the program wait the user to enter data in a completely new line, and the process continues.
     ---------------------------------------------------------------------------------------------------------------------
     THIS MARKS THE COMPLETION OF THE WORKING OF TEXT EDITOR WITHOUT THE FEATURE OF ARROW KEYS.
+    date:11/11/2025
+    today we have completely changed the method of decision making and string parsing.
+    previously we just used if and else and three different variables to store different commands.
+    PREVIOUS METHOD:
 
+        As shown in the user manual the different commands like -r file and file name are used to be stored in different dedicated variables,
+        this made the structure of command very rigid for change in the future.
+    NEW METHOD:
+
+        Now, we are using the function called strtok() to tokenize the string with spaces, this made the structure of the command flexible and can be changed on the future use.
+        We first initilized a pointer named token to store the tokens given by the strtok() after using it using loop we have moved to the next token and stored it in the memeory location.
+
+        if(fgets(input, sizeof(input), stdin) != NULL)
+        input[strcspn(input, "\n")] = '\0';
+        char *token = strtok(input, " ");
+        while(token != NULL)
+        Here we removed the next line character so that the strtok() doesn't tokezie that too leading to errors.
 
