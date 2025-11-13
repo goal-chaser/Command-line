@@ -87,7 +87,7 @@ int main(){
                     read_file(token);
                     break;
                 }
-                else if(strcmp(token, "rw") == 0){
+                else if(strcmp(token, "-rw") == 0){
                     token = strtok(NULL, " ");
                     edit_file(token);
                     break;
