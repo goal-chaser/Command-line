@@ -86,3 +86,7 @@ Todays date is 30/10/25
         while(token != NULL)
         Here we removed the next line character so that the strtok() doesn't tokezie that too leading to errors.
 
+    LEARNINGS:
+        The new header file <unistd.h> the use of this header file specifically for our code is the use of the function getcwd() which returns the directory the code is currently running in by getting the info from the OS.
+        The header file mainly provides access to the POSIX operating system which is desinged by Unix its a set of standards, this helps the developers to interact with the operating system irrespective of the types(like windows,Linux,MacOS), In our case it helps with retreaving the information of directories and files operations.
+
