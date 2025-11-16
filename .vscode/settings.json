@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "file-manager.C": "cpp"
+        "file-manager.C": "cpp",
+        "comms.C": "cpp"
     }
 }

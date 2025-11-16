@@ -4,6 +4,7 @@
 #include<dirent.h>
 #include<errno.h>
 #include<stdbool.h>
+
 int create_file(char x[]){
     FILE *pfile = fopen(x,"w");
     if(pfile == NULL){
@@ -140,5 +141,5 @@ int main(){
             change_directory(token);
         }
     }
-}
+  }
 }
