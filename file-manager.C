@@ -1,9 +1,12 @@
 #include<stdio.h>
+#include<windows.h>
 #include<string.h>
 #include<unistd.h>
 #include<dirent.h>
 #include<errno.h>
 #include<stdbool.h>
+
+int ping_f(char[]);
 
 int create_file(char x[]){
     FILE *pfile = fopen(x,"w");
@@ -140,6 +143,17 @@ int main(){
             token = strtok(NULL,"");
             change_directory(token);
         }
+        if(strcmp(token, "ping") == 0){
+            token = strtok(NULL, "");
+            while(1 == 1){
+                ping_f(token);
+                if(token == "^c"){
+                    break;
+                }
+                Sleep(1000);
+
+                }
+            }
+        }
     }
   }
-}
