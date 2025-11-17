@@ -71,7 +71,25 @@ int edit_file(char nf[]){
         fclose(popfile);
         return 0;
     }
-
+char help[] = "# ---------------------------------------------------USER MANUAL--------------------------------------------------------------------------------------\n"
+"\n"
+"To do any type of changes related to a file, the command structure goes like:\n"
+"    file <action you want to perform> <the file name if in the same directory or relative path of the file>\n"
+"        For the actions you want to perform:\n"
+"        <-c> for creating a file.\n"
+"        <-r> for reading an existing file.\n"
+"        <-rw> for appending an existing file.\n"
+" \n                                                                                                                                                                    "
+"    For performing directory related actions \n"
+"            STRUCTURE: cd <file name or relative file path> or to move back into the previous directory <..>\n"
+"       To print the directory you are currently present in <pwd>.\n"
+"        To print the contents present in the directory <ls>.\n"
+"        To move to a desired directory:\n"
+"            If the desired folder is present in the current directory folder name is enough.\n"
+"            If the desired folder is not present in the current directory then relative file path is neccessary.\n"
+"        To check if a host you want to connect to is alive or not use ping then the address of the host.          \n" 
+"\n"
+"-------------------------------------------------------------------------------------------------------------------------------------------------\n";
 
 int list(char *x){
     struct dirent *list;
@@ -147,13 +165,12 @@ int main(){
             token = strtok(NULL, "");
             while(1 == 1){
                 ping_f(token);
-                if(token == "^c"){
-                    break;
-                }
                 Sleep(1000);
-
                 }
             }
+        if(strcmp(token, "help") == 0){
+            printf("%s",help);
         }
-    }
-  }
+}
+}
+}
