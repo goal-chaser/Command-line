@@ -2,20 +2,7 @@
 Creating a command line using C for the back end and using python for the GUI.
 # ---------------------------------------------------USER MANUAL--------------------------------------------------------------------------------------
 
-To do any type of changes related to a file, the command structure goes like: 
-    file <action you want to perform> <the file name if in the same directory or relative path of the file>
-        For the actions you want to perform:
-        <-c> for creating a file.
-        <-r> for reading an existing file.
-        <-rw> for appending an existing file.
-    /
-    For performing directory related actions:
-            STRUCTURE: cd <file name or relative file path> or to move back into the previous directory <..>
-        To print the directory you are currently present in <pwd>.
-        To print the contents present in the directory <ls>.
-        To move to a desired directory:
-            If the desired folder is present in the current directory folder name is enough.
-            If the desired folder is not present in the current directory then relative file path is neccessary.
+TYPE "help" in the program to get the manual
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------
 Today's date: 29/10/2025
@@ -153,4 +140,91 @@ Todays date is 30/10/25
             Today we will be building a ping command function into our program.
 
             We are using AI to learn about the header files we need to build it, the funcitons we need to use, how to use them and how they work.
+            
+            The functions we are gonna be using are:
+            1. socket();
+            2. setsockopt();
+            3. inet_pton();
+            4. sendto();
+            5. recvfrom();
+
+        1. SOCKET();
+            This function is used to set up a socket, allocate the resources to send and recieve packets, set up filters to only allow ICMP packets.
+            This funciton returns a number to describe the socket.
+            STRUCTURE:
+                socket(domain, type, ip protocol);
+                for our case we are going to use IPv4 for the domain, raw_socket for type and icmp protocol.
+
+        2. setsockopt():
+            This function is used to set the rules for the communication between the devices, the info coming in and out.
+            STRUCTURE:
+                setsockopt(socket, level, optname, optval, optlen);
+                for our case we are going to set the socket as number we get from the first function.
+                level is a socket_level.
+                optname as SO_RCVTIMEO (this waits to receive the message until a set time if not we get time out message).
+                optval is set as &optval this is a pointer to the struct timeval predefined struct.
+                and finally the oplen which is the memeory size of the struct.
+        
+        3. inet_ption();
+            This funciton is used to convert the human readable address like 8.8.8.8 to binary.
+            STRUCTRUE:
+                inet_ption(af, src, dst);
+                for our case we are setting af as af_ient(converts from ip format)
+                and src is the ip address in text form.
+                dst is the place where we are going to store the converted address &dest_addr.sin_addr(this is a pre defined struct).
+        
+        4. sendto();
+            This function is used to send the icmp packets to the correct destination.
+            STRUCTURE:
+                sendto(socket, buf, len, flags, dest_addr, addrlen);
+                For our case we are going to give the number we get from the socket function.
+                Next the buf is set as data we have to send which is the icmp packet we created.
+                len is the size of this icmp packet.
+                des_addr is set the binary form we get from the inet_ption function.
+                addrlen is the size of the destination address.
+        5. recvfrom();
+            We are letting the OS to wait and listen for the reply from the target and calculates round time trip and ends waiting once the timeout has reached.
+            STRUCTURE:
+                recvfrom(socket, buf, len, flags, src_addr, addrlen);
+                socket is set the number we get from the socket function in the first step.
+                buf is the buffer to store any info we recieve.
+                flags is set a 0.
+                src addr is set to NULL because we don't care where it is coming we know its from the our target.
+                and addrlen is set to NULL because we are not accepting any src addr.
+
+        Date: 17/11/25:
+            Today marks the completion of the code for the ping funciton. Here we will see the explanation of the code one by one.
+
+                First we will typedef the WSADATA(WSA stands for windows socket API) to wsadata for easier typing, then we will tell the OS of the computer to start the network operations by calling WSAstartup(the first argument is the version we are going to use, this data is filled by OS(wsadata));
+
+                Then we will check for the errors we get if it is not executed properly.
+
+                Now we will go on and call the socket function to create a socket to use it to send and recieve data. we have explained the what are its arguments and its output.
+
+                we will check to errors its going to return if something goes sideways.
+
+                Then we will set the rules that this socket must follow, like what it accepts like the timeout funciton the socket number, its ip version etc.
+
+                We will check for its errors its going to return.
+
+                then we will call a pre defined struct called sockaddr_in which contains information like port value, its family like ip version etc.
+                we will set there values as per the values documented in google for icmp packets.
+
+                then we will use the inet_pton funciton to conver the human readable ip or dns address to binary form which will be used by the sendto function in the future.
+
+                then we will construct the struct for the icmp header information according to the documentation given in the google search.
+
+                then we will create a function to calculate the checksum which is used to check for errors in the echo of icmp.
+                the checksum function is written as per the doc given in the google search.
+
+                Then we will go on to use the QueryPerformacefrequency, QueryPerformaceCounter function to hekp calculate the round trip time taken.
+
+                We will use the sendto() function and recvfrom() function to send and recieve the icmp echo request and the echo from the target.
+
+                then we will wrap it up by calculate the round trip and printing it.
+
+                Today we will be aiming to create a help function.
+
+        Date: 18/11/25
+            Today we will be aiming to code the necessary functions to view our system information(everything) including CPU cahes, RAM usage etc etc.
             
