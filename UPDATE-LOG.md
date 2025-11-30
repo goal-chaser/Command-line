@@ -4,6 +4,17 @@ Creating a command line using C for the back end and using python for the GUI.
 
 TYPE "help" in the program to get the manual
 
+to run this program on your computer, copy the code from the repo, paste it in your code editor, make use you create two seperate files on your computer, one is comms and other is the file manager, paste their respective codes.
+
+Now open command prompt as administrator, using cd(change directory) paste the relative path of the folder where you saved these two codes, then complie them
+
+gcc file-manager.c comms.c -o myping -lws2_32, hit enter
+
+after compilation now enter
+
+./myping to run the code.
+
+
 # -------------------------------------------------------------------------------------------------------------------------------------------------
 Today's date: 29/10/2025
 Today i am planning to start the project and first we will start by coding the file managing funciton:
